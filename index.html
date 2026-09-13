@@ -259,3 +259,15 @@ if('serviceWorker' in navigator){
 </script>
 </body>
 </html>
+// Bloqueio automático após 2 minutos sem uso - segurança extra
+let tempoBloqueio;
+function resetTimer(){ clearTimeout(tempoBloqueio); tempoBloqueio=setTimeout(bloquear,120000); }
+['click','touchstart','keydown'].forEach(e=>document.addEventListener(e,resetTimer));
+resetTimer();
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
