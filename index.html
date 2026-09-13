@@ -89,3 +89,161 @@ body{background:#000;color:#fff;min-height:100vh}
     <div class="tab" onclick="openTab('vip')">👑 VIP R$3</div>
   </div>
   <div class="content" id="content">
+<!-- ABA BANCOS -->
+    <div id="tab-bancos">
+      <div class="card">
+        <h3 style="color:gold">🏦 Seus Bancos Oficiais - Clique pra Abrir ou Instalar</h3>
+        <small style="color:#888">💾 Salvo local | 🗑️ Lixeirinha pra excluir | ↩️ Voltar no topo | Links oficiais seguros</small>
+        <div style="margin-top:10px;display:flex;gap:6px">
+          <input id="buscaBanco" placeholder="Buscar banco..." style="flex:1;padding:10px;border-radius:10px;background:#000;border:1px solid #333;color:#fff" oninput="renderBancos()">
+          <button class="btn2" onclick="openTab('add')">➕</button>
+        </div>
+      </div>
+      <div id="listaBancos"></div>
+      <div class="card" style="text-align:center">
+        <button class="btn2" onclick="voltarTopo()">↩️ Voltar ao Topo</button>
+        <span class="save-badge">💾 Auto-salvo</span>
+      </div>
+    </div>
+
+    <!-- ABA ADICIONAR -->
+    <div id="tab-add" style="display:none">
+      <div class="card">
+        <h3 style="color:gold">➕ Adicionar Mais Bancos</h3>
+        <small style="color:#888">Com lixeirinha 🗑️ + salvar 💾 + voltar ↩️</small>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+          <input id="addNome" placeholder="Nome do Banco (Ex: Santander)" style="padding:12px;border-radius:10px;background:#000;border:1px solid #333;color:#fff">
+          <input id="addSite" placeholder="Site oficial (https://...)" style="padding:12px;border-radius:10px;background:#000;border:1px solid #333;color:#fff">
+          <input id="addPlay" placeholder="Link Play Store (opcional)" style="padding:12px;border-radius:10px;background:#000;border:1px solid #333;color:#fff">
+          <input id="addIcon" placeholder="Emoji ícone (Ex: 🏦)" style="padding:12px;border-radius:10px;background:#000;border:1px solid #333;color:#fff" maxlength="2">
+          <button class="btn-gold" onclick="adicionarBanco()">💾 SALVAR BANCO COM PLAY STORE</button>
+          <button class="btn-ghost" onclick="openTab('bancos')">↩️ Voltar pra Meus Bancos</button>
+        </div>
+      </div>
+      <div class="card">
+        <h4 style="color:gold">📲 Atalhos Rápidos - Play Store Oficial</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+          <button class="btn2 btn-play" onclick="quickAdd('Itaú','https://www.itau.com.br','https://play.google.com/store/apps/details?id=com.itau','🏦')">+ Itaú</button>
+          <button class="btn2 btn-play" onclick="quickAdd('Santander','https://www.santander.com.br','https://play.google.com/store/apps/details?id=br.com.santander.wallet','🔴')">+ Santander</button>
+          <button class="btn2 btn-play" onclick="quickAdd('Caixa','https://www.caixa.gov.br','https://play.google.com/store/apps/details?id=br.com.gabba.Caixa','🔵')">+ Caixa</button>
+          <button class="btn2 btn-play" onclick="quickAdd('Bradesco','https://www.bradesco.com.br','https://play.google.com/store/apps/details?id=com.bradesco','🔴')">+ Bradesco</button>
+          <button class="btn2 btn-play" onclick="quickAdd('Banco do Brasil','https://www.bb.com.br','https://play.google.com/store/apps/details?id=br.com.bb.android','🟡')">+ BB</button>
+          <button class="btn2 btn-play" onclick="quickAdd('Nubank','https://www.nubank.com.br','https://play.google.com/store/apps/details?id=com.nu.production','💜')">+ Nubank</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA PLAY STORE CENTRAL -->
+    <div id="tab-playstore" style="display:none">
+      <div class="card">
+        <h3 style="color:gold">📲 Play Store Dentro do App</h3>
+        <p style="font-size:13px;color:#aaa;margin-top:8px">Aqui você instala os apps oficiais direto da Play Store oficial! Seguro! Clique e abre a Play Store na hora!</p>
+        <div id="listaPlayStore" style="margin-top:15px"></div>
+        <button class="btn-ghost" onclick="openTab('bancos')" style="margin-top:10px">↩️ Voltar</button>
+      </div>
+    </div>
+
+    <!-- ABA VIP -->
+    <div id="tab-vip" style="display:none">
+      <div class="card" style="border:2px solid gold;text-align:center">
+        <h2 style="color:gold">👑 Se Tornar VIP - R$ 3,00</h2>
+        <p style="font-size:13px;color:#ccc;margin:10px 0">Desbloqueie cofre ilimitado + backup + suporte!</p>
+        <div style="background:#000;border:1px dashed gold;padding:12px;border-radius:12px;margin:12px 0">
+          <small style="color:#888">PIX - Copiar:</small>
+          <div id="pixKey" style="color:gold;font-weight:bold;margin:6px 0">bancogratidao@gmail.com</div>
+          <button class="btn-gold" onclick="copiarPixVip()">💾 📋 COPIAR PIX E SALVAR</button>
+          <div id="pixMsg" style="font-size:12px;color:#0f0;margin-top:8px"></div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+          <button class="btn2" onclick="shareApp()">📤 Compartilhar App</button>
+          <button class="btn2" onclick="convidar()">💌 Convidar</button>
+          <button class="btn2" onclick="instalarApp()">📲 Instalar</button>
+        </div>
+        <button class="btn-ghost" onclick="openTab('bancos')">↩️ Voltar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ===== SEGURANÇA - PIN SÓ SEU =====
+let pinDigitado='';
+let pinSalvo=localStorage.getItem('v17_pin');
+let tentandoCriar=false;
+
+function updateDots(){
+  for(let i=1;i<=4;i++){
+    document.getElementById('d'+i).classList.toggle('filled', i<=pinDigitado.length);
+  }
+}
+function addPin(n){
+  if(pinDigitado.length>=4) return;
+  pinDigitado+=n; updateDots();
+  if(pinDigitado.length===4) setTimeout(okPin,300);
+}
+function clearPin(){ pinDigitado=pinDigitado.slice(0,-1); updateDots(); }
+function okPin(){
+  if(!pinSalvo){
+    if(pinDigitado.length<4){ document.getElementById('pinMsg').innerText='PIN precisa 4 dígitos!'; return; }
+    if(!tentandoCriar){
+      tentandoCriar=true; pinSalvo=pinDigitado; 
+      document.getElementById('pinMsg').innerText='Digite novamente pra confirmar!';
+      document.getElementById('btnCriarPin').style.display='block';
+      pinDigitado=''; updateDots(); return;
+    }
+  }
+  // verificar
+  if(pinDigitado===pinSalvo){
+    localStorage.setItem('v17_pin',pinSalvo);
+    document.getElementById('lockScreen').style.display='none';
+    document.getElementById('app').style.display='block';
+    pinDigitado=''; updateDots();
+    renderBancos(); renderPlayStore();
+  } else {
+    document.getElementById('pinMsg').innerText='❌ PIN incorreto! Tente novamente';
+    pinDigitado=''; updateDots();
+    setTimeout(()=>document.getElementById('pinMsg').innerText='',2000);
+  }
+}
+function criarPin(){
+  if(pinDigitado!==pinSalvo){ document.getElementById('pinMsg').innerText='PINs diferentes! Digite igual!'; return; }
+  localStorage.setItem('v17_pin',pinSalvo);
+  document.getElementById('lockScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+  alert('✅ PIN criado e salvo 💾! Só você entra agora!');
+}
+function resetPin(){
+  if(!confirm('Resetar PIN? 🗑️ Lixeirinha - vai apagar e criar novo!')) return;
+  localStorage.removeItem('v17_pin'); pinSalvo=null; tentandoCriar=false; pinDigitado='';
+  updateDots(); document.getElementById('btnCriarPin').style.display='none';
+  document.getElementById('pinMsg').innerText='PIN resetado! Crie novo agora!';
+}
+function bloquear(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('lockScreen').style.display='flex';
+  pinDigitado=''; updateDots();
+}
+
+// Inicializa
+if(pinSalvo){ document.getElementById('pinMsg').innerText='Digite seu PIN secreto'; }
+else { document.getElementById('pinMsg').innerText='Crie seu PIN secreto de 4 dígitos!'; }
+
+// ===== BANCOS =====
+let bancos = JSON.parse(localStorage.getItem('v17_bancos')||'null');
+if(!bancos){
+  bancos=[
+    {id:1,nome:'Itaú',site:'https://www.itau.com.br',play:'https://play.google.com/store/apps/details?id=com.itau',icon:'🏦'},
+    {id:2,nome:'Santander',site:'https://www.santander.com.br',play:'https://play.google.com/store/apps/details?id=br.com.santander.wallet',icon:'🔴'},
+    {id:3,nome:'Caixa',site:'https://www.caixa.gov.br',play:'https://play.google.com/store/apps/details?id=br.com.gabba.Caixa',icon:'🔵'},
+    {id:4,nome:'Bradesco',site:'https://www.bradesco.com.br',play:'https://play.google.com/store/apps/details?id=com.bradesco',icon:'🔴'},
+    {id:5,nome:'Banco do Brasil',site:'https://www.bb.com.br',play:'https://play.google.com/store/apps/details?id=br.com.bb.android',icon:'🟡'},
+    {id:6,nome:'Nubank',site:'https://www.nubank.com.br',play:'https://play.google.com/store/apps/details?id=com.nu.production',icon:'💜'},
+    {id:7,nome:'Inter',site:'https://www.bancointer.com.br',play:'https://play.google.com/store/apps/details?id=br.com.intermedium',icon:'🧡'},
+    {id:8,nome:'C6 Bank',site:'https://www.c6bank.com.br',play:'https://play.google.com/store/apps/details?id=com.c6bank.app',icon:'⚫'},
+    {id:9,nome:'Mercado Pago',site:'https://www.mercadopago.com.br',play:'https://play.google.com/store/apps/details?id=com.mercadopago.wallet',icon:'🔵'},
+    {id:10,nome:'PicPay',site:'https://www.picpay.com',play:'https://play.google.com/store/apps/details?id=com.picpay',icon:'🟢'}
+  ];
+  localStorage.setItem('v17_bancos',JSON.stringify(bancos));
+}
+function saveBancos(){ localStorage.setItem('v17_bancos',JSON.stringify(bancos)); }
