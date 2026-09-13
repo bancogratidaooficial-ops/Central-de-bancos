@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>V17 COFRE DE BANCOS 🔐🏦</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#FFD700">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:#000;color:#fff;min-height:100vh}
+.lock-screen{position:fixed;inset:0;background:radial-gradient(circle at top,#1a1a00,#000);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.lock-card{background:linear-gradient(145deg,#111,#000);border:2px solid gold;border-radius:20px;padding:30px 20px;width:100%;max-width:360px;text-align:center;box-shadow:0 0 30px rgba(255,215,0,0.3)}
+.lock-card h1{color:gold;font-size:24px;margin-bottom:10px}
+.lock-card small{color:#aaa}
+.pin-dots{display:flex;gap:12px;justify-content:center;margin:20px 0}
+.dot{width:18px;height:18px;border:2px solid gold;border-radius:50%;transition:0.2s}
+.dot.filled{background:gold;box-shadow:0 0 10px gold}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.pin-btn{background:#111;border:1px solid #333;color:#fff;font-size:22px;font-weight:bold;padding:18px;border-radius:14px;cursor:pointer;transition:0.2s}
+.pin-btn:active{background:gold;color:#000;transform:scale(0.95)}
+.btn-gold{background:linear-gradient(90deg,gold,#ffb700);color:#000;border:none;padding:12px 20px;border-radius:12px;font-weight:bold;cursor:pointer;width:100%;margin-top:15px}
+.btn-ghost{background:transparent;border:1px solid #444;color:#aaa;padding:10px;border-radius:10px;width:100%;margin-top:8px;cursor:pointer}
+.save-badge{background:#0f0;color:#000;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:bold}
+.trash-btn{background:transparent;border:1px solid #f44;color:#f44;padding:6px 10px;border-radius:8px;cursor:pointer}
+.header{background:#111;border-bottom:2px solid gold;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.logo{color:gold;font-weight:bold;font-size:18px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px;background:#0a0a0a;border-bottom:1px solid #222}
+.tab{white-space:nowrap;padding:8px 14px;border-radius:20px;background:#111;border:1px solid #333;color:#aaa;cursor:pointer;font-size:13px}
+.tab.active{background:gold;color:#000;border-color:gold;font-weight:bold}
+.content{padding:15px;padding-bottom:90px}
+.card{background:linear-gradient(145deg,#111,#0a0a0a);border:1px solid #222;border-radius:16px;padding:15px;margin-bottom:12px}
+.bank-item{display:flex;align-items:center;gap:12px;background:#111;border:1px solid #222;border-radius:14px;padding:12px;margin-bottom:10px}
+.bank-logo{width:48px;height:48px;background:#000;border:1px solid gold;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.bank-info{flex:1}
+.bank-name{font-weight:bold;color:#fff;font-size:15px}
+.bank-desc{font-size:11px;color:#888}
+.bank-actions{display:flex;gap:5px;flex-wrap:wrap}
+.btn2{background:#222;border:1px solid #444;color:#fff;padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer}
+.btn-play{background:linear-gradient(90deg,#00c853,#00e676);color:#000;font-weight:bold}
+.btn-open{background:linear-gradient(90deg,gold,#ffb700);color:#000;font-weight:bold}
+</style>
+</head>
+<body>
+
+<!-- TELA DE BLOQUEIO - SÓ VOCÊ ENTRA -->
+<div id="lockScreen" class="lock-screen">
+  <div class="lock-card">
+    <h1>🔐 COFRE V17</h1>
+    <small>Bancos Seguros - Acesso Privado</small>
+    <div style="margin-top:15px;color:gold;font-size:13px">Digite seu PIN de 4 dígitos</div>
+    <div class="pin-dots" id="pinDots">
+      <div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div><div class="dot" id="d4"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="addPin('1')">1</button>
+      <button class="pin-btn" onclick="addPin('2')">2</button>
+      <button class="pin-btn" onclick="addPin('3')">3</button>
+      <button class="pin-btn" onclick="addPin('4')">4</button>
+      <button class="pin-btn" onclick="addPin('5')">5</button>
+      <button class="pin-btn" onclick="addPin('6')">6</button>
+      <button class="pin-btn" onclick="addPin('7')">7</button>
+      <button class="pin-btn" onclick="addPin('8')">8</button>
+      <button class="pin-btn" onclick="addPin('9')">9</button>
+      <button class="pin-btn" onclick="clearPin()">⌫</button>
+      <button class="pin-btn" onclick="addPin('0')">0</button>
+      <button class="pin-btn" onclick="okPin()">OK</button>
+    </div>
+    <div id="pinMsg" style="margin-top:12px;font-size:12px;color:#f88;min-height:18px"></div>
+    <button class="btn-gold" id="btnCriarPin" onclick="criarPin()" style="display:none">💾 CRIAR MEU PIN E SALVAR</button>
+    <button class="btn-ghost" onclick="resetPin()">Esqueci / Resetar PIN ↩️</button>
+    <div style="margin-top:15px;font-size:10px;color:#555">🔒 PIN salvo só no seu celular. Ninguém vê.<br>💾 Salvo local + 🗑️ Lixeirinha pra resetar</div>
+  </div>
+</div>
+
+<!-- APP PRINCIPAL - ESCONDIDO ATÉ DESBLOQUEAR -->
+<div id="app" style="display:none">
+  <div class="header">
+    <div class="logo">🔐 V17 COFRE DE BANCOS</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn2" onclick="bloquear()">🔒 Bloquear</button>
+      <button class="btn2" onclick="shareApp()">📤</button>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="openTab('bancos')">🏦 Meus Bancos</div>
+    <div class="tab" onclick="openTab('add')">➕ Adicionar Banco</div>
+    <div class="tab" onclick="openTab('playstore')">📲 Play Store</div>
+    <div class="tab" onclick="openTab('vip')">👑 VIP R$3</div>
+  </div>
+  <div class="content" id="content">
